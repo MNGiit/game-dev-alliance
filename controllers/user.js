@@ -46,6 +46,9 @@ router.post("/login", async (req, res) => {
           if (result) {
             console.log("Log in was a success!");
             console.log("this user id is: ", user.id);
+            // session // keep properties in session object
+            req.session.username = username;
+            req.session.loggedIn = true;
             // res.redirect("/users/:thisUserId") // console.log(user.id); // if user exists, and password check passes, redirect to a page
             res.redirect("/");
           } else {
@@ -58,9 +61,15 @@ router.post("/login", async (req, res) => {
       .catch((error) => {
         console.log(error);
         res.json({ error }); // error is sent as a json
-      });
-  });
+    });
+});
 
+// Destroy Session
+router.get("/logout", (req, res) => {
+    req.session.destroy((err) => {
+        res.redirect("/");
+    })
+})
 
 router.get("/:id", (req, res) => {
     res.render("users/Show");
