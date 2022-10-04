@@ -43,8 +43,8 @@ app.use("/articles", ArticleRouter);
 
 app.get("/", (req, res) => {
     // res.send("<h1>Hello world!</h1>");
-    // console.log("Logged in?", req.session.loggedIn);
-    res.render("Index");
+    console.log("Logged in?", req.session.loggedIn);
+    res.render("Index", {loggedIn: req.session.loggedIn});
 });
 
 app.listen("3000", () => {console.log("Server is running on port 3000");});
