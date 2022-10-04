@@ -24,13 +24,19 @@ router.post("/new", async (req, res) => {
     // create new user
     User.create(req.body)
     .then((user) => {
-        res.send("Send to /user/login");
+        // res.send("Send to /user/login");
+        res.redirect("/users/login");
     })
     .catch((error) => {
         console.log(error);
         res.json({error});
     })
 })
+
+router.get("/login", (req, res) => {
+    res.render("users/Login");
+})
+
 
 router.get("/:id", (req, res) => {
     res.render("users/Show");

@@ -11,7 +11,7 @@ class Login extends React.Component {
             // Could use fieldset
             <>
                 <h1>Log in</h1>
-                <form action="/users/new" method="POST">
+                <form action="/users/login" method="POST">
                     <label>
                         Username: <input type="text" name="username" required />
                     </label> <br />
