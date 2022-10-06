@@ -13,9 +13,10 @@ class Index extends React.Component {
             else return <a href="/users/new"><button>Sign up</button></a>
         }
         return (
-            // <DefaultLayout title={"Title"}>
+            // <DefaultLayout title={"Home"}>
+            
             <>
-                <h1>Hello world!</h1>
+                <h1>Home</h1>
                 <div>
                     {loggedIn ? <a href="/users/logout"><button>Logout</button></a> : (<a href="/users/login"><button>Login</button></a>, 
                     <a href="/users/login"><button>Login</button></a>)}
@@ -23,9 +24,9 @@ class Index extends React.Component {
 
 
                 </div>
-                <h2>Users Index</h2>
                 <p>Users (model 1) can create articles (model 2)</p>
                 <h2>Articles Index</h2>
+                <a href="/articles">Articles</a>
                 <p>Users can leave comments (model 3)</p>
                 <h2>Admin page (model 4?)</h2>
                 <p>Admin can delete users or articles or comments</p>
