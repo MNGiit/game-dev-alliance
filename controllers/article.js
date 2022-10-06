@@ -52,23 +52,13 @@ router.get('/:id', function(req, res) {
 router.get("/:id/edit", (req, res) => {
     if(req.session.username === req.body.username) {
         // do edit
+        Article.findById(req.params.id, (err, foundArticle) => {
+            res.render("articles/Edit.jsx", {article: foundArticle});
+        });
     } else {
         res.redirect("/articles");
     }
-})
-
-// Edit
-router.get('/:id/edit', (req, res) => {
-    /*
-        if(!err) {
-            res.render('Edit')
-        }
-    */
-
-    Article.findById(req.params.id, (err, foundArticle)=>{
-        res.render('Edit.jsx', {article: foundArticle});
-    })
-})
+});
 
 // Update
 router.put('/:id', (req, res)=>{
