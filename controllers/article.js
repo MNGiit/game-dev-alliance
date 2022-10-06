@@ -122,10 +122,18 @@ router.put('/:id', (req, res)=>{
 })
 
 // Delete
-router.delete('/:id/delete', (req, res)=>{
+router.delete('/:id', (req, res)=>{
     // Article.findByIdAndDelete(req.params.id);
-    Article.findByIdAndRemove(req.params.id, (err, data) =>{
-        res.redirect('/');
+    // Article.findByIdAndRemove(req.params.id, (err, data) =>{
+    //     res.redirect('/');
+    // })
+
+    Article.findByIdAndRemove(req.params.id).then((article) => {
+        res.redirect("/");
+    })
+    .catch((error) => {
+        console.log(error);
+        res.json({error});
     })
 })
 
