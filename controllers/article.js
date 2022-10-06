@@ -99,14 +99,12 @@ router.put('/:id', (req, res)=>{
 })
 
 // Delete
-app.delete('/pokemon/:id/delete', (req, res)=>{
+router.delete('/:id/delete', (req, res)=>{
     // Article.findByIdAndDelete(req.params.id);
     Article.findByIdAndRemove(req.params.id, (err, data) =>{
         res.redirect('/');
     })
 })
-
-
 
 // Export
 module.exports = router;
