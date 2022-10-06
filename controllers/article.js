@@ -1,5 +1,6 @@
 const express = require("express");
 const Article = require("../models/article");
+const Comment = require("../models/comment");
 const { route } = require("./user");
 // Article = require("../models/article");
 
@@ -50,14 +51,32 @@ router.get('/:id', function(req, res) {
 
 // Edit
 router.get("/:id/edit", (req, res) => {
-    if(req.session.username === req.body.username) {
-        // do edit
-        Article.findById(req.params.id, (err, foundArticle) => {
-            res.render("articles/Edit.jsx", {article: foundArticle});
-        });
-    } else {
-        res.redirect("/articles");
-    }
+    console.log("session username", req.session.username);
+    console.log("body username", req.body.username);
+    console.log("body", req.body);
+    console.log("article req params id username", Article.findById(req.params.id).username);
+    console.log("article (req params id)", Article.findById(req.params.id));
+    console.log("req params", req.params.id)
+    let a = Article.findById(req.params.id);
+    console.log(a.username);
+    
+    // if(req.session.username === Article.findById(req.params.id).username) { // req.body.username is empty
+    //     // do edit
+    //     Article.findById(req.params.id, (err, foundArticle) => {
+    //         res.render("articles/Edit.jsx", {article: foundArticle});
+    //     });
+    // } else {
+    //     res.redirect("/articles");
+    // }
+
+    const id = req.params.id; // get id
+    Article.findById(id).then((article) => {
+        res.render("articles/Edit.jsx", { article } );
+    })
+    .catch((error) => {
+        console.log(error);
+        res.json( { error });
+    })
 });
 
 // Update
@@ -73,19 +92,33 @@ router.put('/:id', (req, res)=>{
         // If there are checkbox radio, put the code here before making changes
         Article.findByIdAnd
     */
-    Article.findById(req.params.id, (err, foundArticle)=>{
-        res.render('articles/Show.jsx', {article: foundArticle});
-    })
+    // Article.findById(req.params.id, (err, foundArticle)=>{
+    //     res.render('articles/Show.jsx', {article: foundArticle});
+    // })
     
-    console.log("Article findbyId username", Article.findById(req.params.id).username)
-    // verify the author of the article is the same as the user
-    if(req.session.username === Article.findById.username) {
-        Article.findByIdAndUpdate(req.params.id, req.body, {new: true});
-        // res redirect
-    } else {
+    // console.log("Article findbyId username", Article.findById(req.params.id).username)
+    // // verify the author of the article is the same as the user
+    // if(req.session.username === Article.findById.username) {
+    //     // Article.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    //     Article.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((article) => {
+    //         res.redirect("/articles");
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //         res.json({error});
+    //     })
+    //     // res redirect
+    // }
+
+    const id = req.params.id;
+
+    Article.findByIdAndUpdate(id, req.body, { new: true}).then((article) => {
         res.redirect("/");
-    }
-    
+    })
+    .catch((error) => {
+        console.log(error);
+        res.json({error});
+    })
 })
 
 // Delete
