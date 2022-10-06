@@ -58,15 +58,15 @@ router.get("/:id/edit", (req, res) => {
 })
 
 // Edit
-app.get('/pokemon/:id/edit', function(req, res) {
+router.get('/:id/edit', (req, res) => {
     /*
         if(!err) {
             res.render('Edit')
         }
     */
 
-    Pokemon.findById(req.params.id, (err, foundPokemon)=>{
-        res.render('Edit.jsx', {pokemon: foundPokemon});
+    Article.findById(req.params.id, (err, foundArticle)=>{
+        res.render('Edit.jsx', {article: foundArticle});
     })
 })
 
