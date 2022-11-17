@@ -1,5 +1,6 @@
 require("dotenv").config();
 const ArticleRouter = require("./controllers/article");
+const GameRouter = require("./controllers/game");
 const UserRouter = require("./controllers/user");
 
 const express = require("express");
@@ -14,6 +15,8 @@ const app = express();
 app.engine("jsx", require("express-react-views").createEngine());
 app.set("view engine", "jsx");
 //
+
+app.use(express.static('public'));              //tell express to try to match requests with files in folder called public
 
 // Middleware
 app.use(morgan("tiny"));
@@ -40,6 +43,7 @@ app.use(
 
 app.use("/users", UserRouter);
 app.use("/articles", ArticleRouter);
+app.use("/games", GameRouter);
 
 app.get("/", (req, res) => {
     // res.send("<h1>Hello world!</h1>");
